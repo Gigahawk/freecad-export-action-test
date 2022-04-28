@@ -1,0 +1,29 @@
+name: Build FreeCAD documents
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build files
+        uses: Gigahawk/freecad-export-action@0.19.4
+        with:
+          paths: |
+            SW_Cherry_MX_PCB.FCStd
+            Stabilizer_Cherry_MX_2u.FCStd
+          output-path: export
+          export-types: |
+            step
+            wrl
+            stl
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: export
+          path: export/
