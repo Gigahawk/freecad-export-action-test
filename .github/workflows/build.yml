@@ -27,3 +27,28 @@ jobs:
         with:
           name: export
           path: export/
+  check-export-pushed:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build files
+        uses: Gigahawk/freecad-export-action@0.19.4
+        with:
+          paths: |
+            SW_Cherry_MX_PCB.FCStd
+            Stabilizer_Cherry_MX_2u.FCStd
+          output-path: .
+          export-types: |
+            step
+            wrl
+            stl
+
+      - name: Fail when reexport required
+        run: |
+          git diff
+          for file in $(git diff --name-only); do
+            echo "File '${file}' Requires reexport"
+            echo "::error file=${file}::Requires reexport"
+          done
+          test -z "$(git diff --name-only)"
