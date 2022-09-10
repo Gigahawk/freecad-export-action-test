@@ -28,28 +28,3 @@ jobs:
         with:
           name: export
           path: export/
-  check-export-pushed:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Build files
-        uses: Gigahawk/freecad-export-action@master
-        with:
-          paths: |
-            SW_Cherry_MX_PCB.FCStd
-            Stabilizer_Cherry_MX_2u.FCStd
-          output-path: .
-          export-types: |
-            step
-            wrl
-            stl
-
-      - name: Fail when reexport required
-        run: |
-          for file in $(git diff --name-only -w -I'^(FILE_NAME).*'); do
-            echo "File '${file}' Requires reexport"
-            echo "::error file=${file}::Requires reexport"
-          done
-          git diff -w -I'^(FILE_NAME).*'
-          test -z "$(git diff --name-only -w -G'^(FILE_NAME).*')"
