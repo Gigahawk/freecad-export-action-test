@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build files
-        uses: Gigahawk/freecad-export-action@0.19.4
+        uses: Gigahawk/freecad-export-action@master
         with:
           paths: |
             SW_Cherry_MX_PCB.FCStd
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build files
-        uses: Gigahawk/freecad-export-action@0.19.4
+        uses: Gigahawk/freecad-export-action@master
         with:
           paths: |
             SW_Cherry_MX_PCB.FCStd
