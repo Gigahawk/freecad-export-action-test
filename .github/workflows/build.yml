@@ -16,6 +16,7 @@ jobs:
           paths: |
             SW_Cherry_MX_PCB.FCStd
             Stabilizer_Cherry_MX_2u.FCStd
+            kicad_proj/kicad_proj.kicad_pcb
           output-path: export
           export-types: |
             step
