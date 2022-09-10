@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -23,12 +23,13 @@ jobs:
             stl
 
       - name: Upload artifacts
+        if: ${{ !env.ACT }}
         uses: actions/upload-artifact@v3
         with:
           name: export
           path: export/
   check-export-pushed:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
