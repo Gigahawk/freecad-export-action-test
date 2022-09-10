@@ -47,9 +47,9 @@ jobs:
 
       - name: Fail when reexport required
         run: |
-          git diff
-          for file in $(git diff --name-only); do
+          git diff -w -G'(^(\?!FILE_NAME)).*'
+          for file in $(git diff --name-only -w -G'(^(\?!FILE_NAME)).*'); do
             echo "File '${file}' Requires reexport"
             echo "::error file=${file}::Requires reexport"
           done
-          test -z "$(git diff --name-only)"
+          test -z "$(git diff --name-only -w -G'(^(\?!FILE_NAME)).*')"
